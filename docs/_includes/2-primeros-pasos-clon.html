@@ -1,0 +1,38 @@
+<section id="cover">
+    <section>
+        <h3>Primeros pasos</h3>
+        <h3></h3>
+        <hr/>
+        <p>Clonando un repositorio de un proyecto Laravel</p>
+    </section>
+    <!--
+        Bloques de diapositivas
+    -->
+    <section data-markdown>
+        ### Consideraciones generales
+        - Cuando se sube un proyecto Laravel a un repositorio se ignoran ciertos archivos por problemas de seguridad y espacio
+        - Al crear un proyecto Laravel ya incluye los archivos .gitignore para evitar la subida de archivos innecesarios
+        - La infrestructura que usamos exige que no se suban los archivos de persistencia de la base de datos
+    </section>
+    <section data-markdown>
+        ### Configuración de Laravel
+        - Uno de los archivos afectados es el que contiene la configuración de laravel: `.env`
+        - En este archivo se encuentra la configuración de la base de datos, incluyendo nombre de usuario y contraseña
+        - Para recrearlo es necesario copiar el archivo .env.example y modificar los parámetros adecuados para el proyecto
+        - Los parámetros necesarios son: `DB_HOST, DB_USERNAME, DB_PASSWORD`  
+
+>Estas operaciones se pueden realizar desde nuestro IDE
+    </section>
+    <section data-markdown>
+        ### Restauración de Laravel
+        - En el repositorio no se suben las carpetas de las librerías de terceros usadas en laravel
+        - Para volver a descargar estos componentes hay que ejecutar:  
+        ```composer install```
+        - Tampoco se sube la clave única del proyecto, se regenera ejecutando:  
+        ```php artisan key:generate```
+        - Para crear de nuevo el esquema de la base de datos y aplicar seeders:  
+        ```php artisan migrate --seed```
+
+>Estas operaciones se ejecutan en el contenedor, dentro de la carpeta /var/www/html
+    </section>
+</section>

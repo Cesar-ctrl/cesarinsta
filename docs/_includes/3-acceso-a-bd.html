@@ -1,0 +1,42 @@
+<section id="cover">
+    <section>
+        <h3>Acceso a la base de datos</h3>
+        <h3></h3>
+        <hr/>
+        <p>Creación del esquema en la base datos</p>
+    </section>
+    <!--
+        Bloques de diapositivas
+    -->
+    <section data-markdown>
+        ### Consideraciones generales
+        - El sistema para gestionar la base de datos con Laravel se compone de tre elementos:
+            1. **Las migraciones**: se define una por entidad y en él se definen las columnas
+            2. **Las semillas**: necesarias para poblar de datos de prueba la base de datos
+            3. **Los modelos**: clases que serán las que usemos desde los controladores para gestionar los datos almacenados en la base de datos
+    </section>
+    <section data-markdown>
+        ### Creación de los archivos
+        - Para crear el soporte de una entidad del modelo:  
+        ```php artisan make:model -rm NombreEntidad```
+        - Esta operación va a crear tres archivos: modelo, migración y controlador  
+        - Se debe realizar por cada una de las entidades del modelo
+        - Es importante que el nombre de la entidad comience por mayúsculas, ya que va a ser el nombre de la clase asociada a esa entidad  
+
+>Estas operaciones se ejecutan en el contenedor, dentro de la carpeta /var/www/html
+    </section>
+    <section data-markdown>
+        ### Migraciones
+        - El primer paso es personalizar la migración
+        - Laravel incluye dos columnas preestablecidas:
+            1. **id**: No creo que haya que explicarlo
+            2. **timestamps**: conjunto de dos columnas de tipo Date para almacenar fecha de creación y modificación de los datos
+        - Los posibles tipos de cada columna se pueden consultar en: [Docs Laravel](https://laravel.com/docs/5.8/migrations#creating-columns)
+    </section>
+    <section data-markdown>
+        ### Ejemplo de migración
+        - Disponible en: [2021_11_11_090000_create_propietarios_table.php](https://github.com/IES-Rafael-Alberti/clases-laravel-21-22/blob/main/laravel/database/migrations/2014_10_12_100000_create_password_resets_table.php)   
+
+![Ejemplo migración](images/migracion1.png)
+    </section>
+</section>

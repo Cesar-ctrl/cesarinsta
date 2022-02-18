@@ -1,0 +1,64 @@
+<section id="cover">
+    <section>
+        <h3>Primeros pasos</h3>
+        <h3></h3>
+        <hr/>
+        <p>Puesta en marcha de un proyecto laravel desde 0</p>
+    </section>
+    <!--
+        Bloques de diapositivas
+    -->
+    <section data-markdown>
+        ### Consideraciones generales
+        - Se ejecutará desde docker
+        - Existe una imagen preparada: fjortegan/dwes:laravel
+        - Archivo docker-compose.yml ejecuta tres contenedores:
+            1. server: imagen para ejecutar laravel
+            2. db: imagen mariaDB
+            3. adminer: imagen adminer
+        - Tras poner en marcha los contenedores es necesario crear el proyecto usando herramienta composer
+        - Una vez creado el proyecto es necesario ajustar los permisos para que sea funcional
+        - Finalmente, se debe configurar laravel modificando el archivo .env
+    </section>
+    <section data-markdown>
+        ### Ejecución docker
+        - Desde la carpeta donde se encuentra el archivo docker-compose.yaml:   
+        ```docker-compose up```
+        - Comprobación: [phpinfo](http://localhost/phpinfo.php)
+        - Para realizar cualquier operación sobre el servidor se debe ejecutar un intérprete de comandos en el contenedor server:  
+        ```docker exec -it nuevo-laravel_servidor_1 /bin/bash```
+        - Se supone que ```nuevo-laravel``` es la carpeta donde se encuentra el archivo docker-compose.yaml, recordad que el nombre del contenedor creado por docker-compose es ```carpeta_nombre-contenedor_1```
+        - Se puede utilizar VS Code o cualquier entorno visual para gestionar los contenedores docker si los comandos no resultan cómodos 
+    </section>
+    <section data-markdown>
+        ### Creación de un proyecto laravel nuevo
+        1. Vamos a crear un proyecto en la carpeta `/root`:  
+        ```cd /root```
+        2. Usando la herramienta composer, creamos un proyecto en la carpeta `nuevo`:   
+        ```composer create-project laravel/laravel nuevo "5.8.*" --prefer-dist```
+        3. Copiamos el proyecto en la carpeta de publicación web:   
+        ```cp -r nuevo/* /var/www/html/```  
+        ```cp nuevo/.* /var/www/html/```
+        4. Cambiamos los permisos para que nginx pueda gestionarlos:  
+        ```chown -R www-data:www-data /var/www/html```
+        5. En sistemas Linux es necesario incluir a nuestro usuario en el grupo www-data (en local) y además ejecutar en el contenedor:  
+        ```chmod -R g+w /var/www/html```
+
+> Estas operaciones se realizan desde la línea de comandos del contenedor   
+    </section>
+    <section data-markdown>
+        ### Configuración de laravel
+        - La configuración de laravel se encuentra en el archivo `.env`
+        - Si usamos docker-compose, estos parámetros se ajustan en `docker-compose.yaml`
+        - Este archivo se edita desde nuestro IDE, son obligatorios los siguientes parámetros:
+            1. DB_HOST: Usando nuestra infrestructura su valor es `db`
+            2. DB_DATABASE: Nombre de la base de datos utilizada para el proyecto
+            3. DB_USERNAME, DB_PASSWORD: Usuario y contraseña de la base de datos
+        - Para activar el soporte de usuarios integrado en laravel:   
+        ```php artisan make:auth```
+        - Este soporte hay que trasladarlo a la base de datos:   
+        ```php artisan migrate```
+
+> Estas operaciones se realizan desde la línea de comandos del contenedor   
+    </section>
+</section>
